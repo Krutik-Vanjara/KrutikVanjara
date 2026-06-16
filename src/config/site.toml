@@ -1,0 +1,167 @@
+[config.site]
+title = "Krutik Vanjara"
+description = "IoT Cybersecurity Engineer — M2 Graduate from ESILV Paris. Building secure connected systems at the intersection of OT/ICS and AI."
+pageTitle = "Krutik Vanjara | IoT & Cybersecurity Engineer"
+pageDescription = "IoT Cybersecurity Engineer based in Greater Paris — specialising in embedded systems, industrial protocols, and secure platform architecture."
+repository = "https://github.com/krutik-vanjara"
+footerNote = "Open to senior IoT cybersecurity & FDE roles."
+
+[config.vibe]
+showTrail = true
+
+[config.theme]
+# Available palettes:
+# green-soft, green-vivid, rose-soft, pink-soft, purple-soft, blue-soft, orange-soft, brown-soft
+palette = "blue-soft"
+
+[config.code]
+lightTheme = "catppuccin-latte"
+darkTheme = "catppuccin-macchiato"
+lineNumbers = true
+wrap = true
+preserveIndent = true
+collapseStyle = "collapsible-auto"
+
+[config.comments]
+enabled = false
+provider = "none"
+show_on_posts = false
+
+[config.search]
+enabled = true
+shortcut = "mod+k"
+placeholder = "Search notes, projects..."
+maxResults = 6
+
+[config.blog]
+postsPerPage = 6
+
+[config.profile]
+name = "Krutik Vanjara"
+handle = "@krutik_vanjara"
+role = "IoT & Cybersecurity Engineer"
+company = "ESILV — BlackFox Partners"
+location = "Greater Paris, France"
+email = "krutikvanjara3880@gmail.com"
+website = "https://linkedin.com/in/krutik-vanjara"
+github = "https://github.com/krutik-vanjara"
+meta = "M2 IoT & Cybersecurity · ESILV Paris"
+avatar = "/images/avatar.png"
+
+[[config.topNav.links]]
+label = "Home"
+href = "/"
+
+[[config.topNav.links]]
+label = "Blog"
+href = "/blog"
+
+[[config.topNav.links]]
+label = "Projects"
+href = "/projects"
+
+[[config.topNav.links]]
+label = "Vibe"
+href = "/vibe"
+
+[[config.topNav.links]]
+label = "About"
+href = "/about"
+
+[config.home]
+layout = "grid"
+
+[config.home.quote]
+text = [
+  "Securing the connected world,",
+  "one protocol at a time.",
+]
+image = ""
+
+[config.home.intro]
+title = "Krutik Vanjara"
+name = "Krutik"
+body = [
+  "M2 Graduate in IoT & Cybersecurity at ESILV Paris, with roots in Physics & Electronics from St. Xavier's College, Ahmedabad.",
+  "I specialise in industrial IoT platforms, edge-to-cloud telemetry pipelines, and OT/ICS security architecture.",
+  "Currently building diagnostic tools at BlackFox Partners and founding a cybersecurity consulting micro-enterprise in Paris.",
+  "Targeting senior IoT cybersecurity product management and FDE roles at companies like Siemens, Claroty, Nozomi Networks, and Palantir EMEA.",
+]
+image = ""
+
+[config.home.latest]
+count = 3
+heatmapWeeks = 24
+showHeatmapLatest = true
+excludeDraft = true
+startDate = ""
+dateArchiveBaseHref = ""
+
+[[config.home.navigation]]
+icon = "briefcase"
+title = "Resume"
+subtitle = "IoT, cybersecurity & engineering background"
+href = "/about"
+
+[[config.home.navigation]]
+icon = "repo"
+title = "Projects"
+subtitle = "Platforms, tools, and security systems"
+href = "/projects"
+
+[[config.home.navigation]]
+icon = "pen"
+title = "Blog"
+subtitle = "Technical notes and field reports"
+href = "/blog"
+
+[[config.home.navigation]]
+icon = "github"
+title = "GitHub"
+subtitle = "Open-source code and experiments"
+href = "https://github.com/krutik-vanjara"
+
+[[config.home.connect]]
+label = "LinkedIn"
+href = "https://linkedin.com/in/krutik-vanjara"
+icon = "compass"
+
+[[config.home.connect]]
+label = "GitHub"
+href = "https://github.com/krutik-vanjara"
+icon = "github"
+
+[[config.home.connect]]
+label = "Email"
+href = "mailto:krutikvanjara3880@gmail.com"
+icon = "mail"
+
+[[config.home.connect]]
+label = "Projects"
+href = "/projects"
+icon = "repo"
+
+[[config.home.connect]]
+label = "Blog"
+href = "/blog"
+icon = "book"
+
+[[config.home.doing]]
+text = "M2 IoT & Cybersecurity at ESILV Paris — graduating 2026"
+mark = "01"
+
+[[config.home.doing]]
+text = "Building CLI diagnostic platforms at BlackFox Partners"
+mark = "02"
+
+[[config.home.doing]]
+text = "Developing FERRIS (Rust) and HERMÈS (French TCF B1) AI agents with Mistral"
+mark = "03"
+
+[[config.home.doing]]
+text = "Exploring compound agentic AI for OT/ICS security — neuro-symbolic architectures"
+mark = "04"
+
+[[config.home.doing]]
+text = "Preparing TCF B1 certification and French language fluency"
+mark = "05"
