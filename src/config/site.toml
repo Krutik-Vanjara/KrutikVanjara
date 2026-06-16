@@ -12,7 +12,7 @@ showTrail = true
 [config.theme]
 # Available palettes:
 # green-soft, green-vivid, rose-soft, pink-soft, purple-soft, blue-soft, orange-soft, brown-soft
-palette = "blue-soft"
+palette = "green-vivid"
 
 [config.code]
 lightTheme = "catppuccin-latte"
