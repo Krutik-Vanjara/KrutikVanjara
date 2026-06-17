@@ -15,7 +15,7 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Use ONLY process.env.grok_api_key (lowercase)
+    // ✅ ONLY use process.env.grok_api_key (lowercase)
     const apiKey = process.env.grok_api_key;
     if (!apiKey) {
       console.error('Grok API key is missing in environment variables.');
