@@ -15,24 +15,25 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // ✅ ONLY use process.env.grok_api_key (lowercase)
-    const apiKey = process.env.grok_api_key;
+    // Use Mistral API key (lowercase)
+    const apiKey = process.env.mistral_api_key;
     if (!apiKey) {
-      console.error('Grok API key is missing in environment variables.');
+      console.error('Mistral API key is missing in environment variables.');
       return new Response(JSON.stringify({ error: 'API key not configured' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    const response = await fetch('https://api.x.ai/v1/chat/completions', {
+    // Mistral API endpoint
+    const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'grok-3-mini',
+        model: 'mistral-tiny', // or 'mistral-small', 'mistral-medium'
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           ...messages,
@@ -44,8 +45,8 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!response.ok) {
       const err = await response.text();
-      console.error('Grok API error:', err);
-      return new Response(JSON.stringify({ error: `Grok error: ${err}` }), {
+      console.error('Mistral API error:', err);
+      return new Response(JSON.stringify({ error: `Mistral error: ${err}` }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       });
