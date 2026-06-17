@@ -1,3 +1,4 @@
+// src/pages/api/chat.ts
 import type { APIRoute } from 'astro';
 import { SYSTEM_PROMPT } from '../../data/krutik-context';
 
@@ -14,8 +15,10 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const apiKey = process.env.grok_api_key || process.env.grok_api_key;
+    // Use ONLY process.env.grok_api_key (lowercase)
+    const apiKey = process.env.grok_api_key;
     if (!apiKey) {
+      console.error('Grok API key is missing in environment variables.');
       return new Response(JSON.stringify({ error: 'API key not configured' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
@@ -41,6 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!response.ok) {
       const err = await response.text();
+      console.error('Grok API error:', err);
       return new Response(JSON.stringify({ error: `Grok error: ${err}` }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
@@ -55,6 +59,7 @@ export const POST: APIRoute = async ({ request }) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (e) {
+    console.error('Server error:', e);
     return new Response(JSON.stringify({ error: 'Server error' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
