@@ -14,7 +14,7 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const apiKey = process.env.grok_api_key || process.env.GROK_API_KEY;
+    const apiKey = process.env.grok_api_key || process.env.grok_api_key;
     if (!apiKey) {
       return new Response(JSON.stringify({ error: 'API key not configured' }), {
         status: 500,
