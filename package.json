@@ -16,12 +16,13 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "bun run lint && prettier --check .",
-    "prepare": "husky"
+    "prepare": "node -e \"process.exit(0)\""
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.2",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/vercel": "^10.0.8",
     "@expressive-code/plugin-collapsible-sections": "^0.42.0",
     "@expressive-code/plugin-line-numbers": "^0.42.0",
     "@fontsource/maple-mono": "^5.2.6",
