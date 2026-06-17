@@ -1,4 +1,3 @@
-// src/pages/api/chat.ts
 import type { APIRoute } from 'astro';
 import { SYSTEM_PROMPT } from '../../data/krutik-context';
 
@@ -15,8 +14,7 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Use lowercase environment variable name for Vercel
-    const apiKey = process.env.grok_api_key;
+    const apiKey = process.env.grok_api_key || process.env.GROK_API_KEY;
     if (!apiKey) {
       return new Response(JSON.stringify({ error: 'API key not configured' }), {
         status: 500,
