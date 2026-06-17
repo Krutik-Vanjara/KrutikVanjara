@@ -1,0 +1,133 @@
+---
+// AiCard.astro — Homepage card linking to the AI persona chat
+---
+
+<a href="/about#ai-chat" class="ai-card glass-card">
+  <div class="ai-card-inner">
+    <div class="ai-avatar-lg">K</div>
+    <div class="ai-copy">
+      <span class="ai-badge">AI Persona</span>
+      <h3 class="ai-title">Talk with Krutik's AI</h3>
+      <p class="ai-desc">Paste your job requirements — get an instant, honest fit analysis powered by Mistral AI</p>
+    </div>
+    <div class="ai-arrow">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </div>
+  </div>
+  <div class="ai-features">
+    <span class="ai-feature">🎯 Role fit analysis</span>
+    <span class="ai-feature">⚡ Instant answers</span>
+    <span class="ai-feature">✅ Honest gaps</span>
+    <span class="ai-feature">📬 Direct contact</span>
+  </div>
+</a>
+
+<style>
+  .ai-card {
+    display: block;
+    text-decoration: none;
+    padding: 20px 22px;
+    border-radius: 12px;
+    border: 1px solid var(--paper-line-strong);
+    background: var(--paper-surface);
+    transition: all 200ms ease;
+    cursor: pointer;
+  }
+
+  .ai-card:hover {
+    border-color: var(--paper-accent);
+    transform: translateY(-2px);
+    box-shadow: var(--paper-shadow-lift);
+  }
+
+  .ai-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .ai-avatar-lg {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--paper-accent);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .ai-copy {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ai-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--paper-accent) 12%, transparent);
+    color: var(--paper-accent);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+
+  .ai-title {
+    margin: 0 0 4px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--paper-ink);
+  }
+
+  .ai-desc {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--paper-ink-soft);
+    line-height: 1.45;
+  }
+
+  .ai-arrow {
+    color: var(--paper-accent);
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: transform 160ms ease;
+  }
+
+  .ai-card:hover .ai-arrow {
+    transform: translateX(3px);
+    opacity: 1;
+  }
+
+  .ai-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--paper-line);
+  }
+
+  .ai-feature {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--paper-surface-muted);
+    border: 1px solid var(--paper-line);
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--paper-ink-soft);
+  }
+
+  @media (max-width: 480px) {
+    .ai-desc {
+      display: none;
+    }
+  }
+</style>

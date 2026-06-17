@@ -1,0 +1,480 @@
+---
+// RecruiterChat.astro — AI Persona Chat for Recruiters
+---
+
+<section class="recruiter-chat-section" id="ai-chat">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <div class="ai-avatar">K</div>
+      <div>
+        <h2 class="chat-title">Talk with Krutik's AI</h2>
+        <p class="chat-subtitle">Paste your job requirements — get an instant, honest fit analysis</p>
+      </div>
+    </div>
+    <div class="chat-status">
+      <span class="status-dot"></span>
+      <span class="status-text">Online</span>
+    </div>
+  </div>
+
+  <div class="chat-window" id="chat-window">
+    <div class="message assistant-message" id="welcome-message">
+      <div class="message-bubble">
+        <p>👋 Hi! I'm Krutik's AI persona.</p>
+        <p>I'm here to help you figure out if Krutik is a fit for your role. <strong>Paste your job description or describe what you're hiring for</strong> — and I'll give you a structured, honest match analysis.</p>
+        <div class="example-prompts">
+          <p class="example-label">Try one of these to get started:</p>
+          <button class="example-btn" data-prompt="We need a senior IoT security engineer with OT/ICS experience, familiarity with IEC 62443, and ability to work with field teams on industrial network deployments.">🔒 OT/ICS Security Role</button>
+          <button class="example-btn" data-prompt="We're hiring a Forward Deployed Engineer who can work directly with enterprise clients, diagnose complex technical issues, and build custom tooling. Strong Python and Linux skills required.">🛠️ Forward Deployed Engineer</button>
+          <button class="example-btn" data-prompt="We need an IoT Product Manager with hands-on technical background, experience managing hardware-software projects, and ability to define product roadmaps for connected devices.">📋 IoT Product Manager</button>
+          <button class="example-btn" data-prompt="Looking for a cybersecurity engineer with experience in ISO 27001, GDPR compliance, risk assessment, and AI governance. Must be able to bridge technical and regulatory teams.">🛡️ GRC / Compliance Engineer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <div class="input-wrapper">
+      <textarea
+        id="chat-input"
+        placeholder="Paste your job description or describe the role you're hiring for..."
+        rows="3"
+        maxlength="2000"
+      ></textarea>
+      <button id="send-btn" class="send-btn" aria-label="Send message">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+    <p class="input-hint">Powered by Grok AI · Krutik's full background is baked into every answer · <a href="mailto:krutikvanjara3880@gmail.com">Contact directly</a></p>
+  </div>
+</section>
+
+<style>
+  .recruiter-chat-section {
+    margin-top: 3rem;
+    border: 1px solid var(--paper-line-strong);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--paper-surface);
+    box-shadow: var(--paper-shadow-lift);
+  }
+
+  /* ── Header ── */
+  .chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--paper-line);
+    background: var(--paper-surface-muted);
+  }
+
+  .chat-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ai-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--paper-accent);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .chat-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--paper-ink);
+  }
+
+  .chat-subtitle {
+    margin: 2px 0 0;
+    font-size: 0.78rem;
+    color: var(--paper-ink-soft);
+  }
+
+  .chat-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--paper-ink-soft);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ── Chat Window ── */
+  .chat-window {
+    min-height: 280px;
+    max-height: 480px;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scroll-behavior: smooth;
+  }
+
+  .message {
+    display: flex;
+    max-width: 88%;
+  }
+
+  .assistant-message {
+    align-self: flex-start;
+  }
+
+  .user-message {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+  }
+
+  .message-bubble {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .assistant-message .message-bubble {
+    background: var(--paper-control);
+    border: 1px solid var(--paper-line);
+    color: var(--paper-ink);
+    border-top-left-radius: 4px;
+  }
+
+  .user-message .message-bubble {
+    background: var(--paper-accent);
+    color: white;
+    border-top-right-radius: 4px;
+  }
+
+  .message-bubble p {
+    margin: 0 0 8px;
+  }
+
+  .message-bubble p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Example Prompts ── */
+  .example-prompts {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .example-label {
+    font-size: 0.78rem;
+    color: var(--paper-ink-soft);
+    font-weight: 600;
+    margin: 0 0 4px !important;
+  }
+
+  .example-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--paper-line-strong);
+    border-radius: 8px;
+    background: var(--paper-surface);
+    color: var(--paper-ink);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 160ms ease;
+    font-family: var(--font-body);
+  }
+
+  .example-btn:hover {
+    background: var(--paper-control-hover);
+    border-color: var(--paper-accent);
+    color: var(--paper-accent);
+    transform: translateY(-1px);
+  }
+
+  /* ── Typing indicator ── */
+  .typing-indicator .message-bubble {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 14px 16px;
+  }
+
+  .typing-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--paper-ink-faint);
+    animation: typing 1.2s infinite;
+  }
+
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  /* ── Rendered markdown in AI messages ── */
+  .ai-content ul, .ai-content ol {
+    padding-left: 1.2rem;
+    margin: 6px 0;
+  }
+
+  .ai-content li {
+    margin: 3px 0;
+  }
+
+  .ai-content strong {
+    color: var(--paper-ink);
+    font-weight: 700;
+  }
+
+  .ai-content p {
+    margin: 6px 0;
+  }
+
+  .ai-content .match-table {
+    margin: 10px 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  .ai-content .match-row {
+    display: flex;
+    gap: 8px;
+    font-size: 0.84rem;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--paper-line);
+  }
+
+  /* ── Input Area ── */
+  .chat-input-area {
+    padding: 16px 20px;
+    border-top: 1px solid var(--paper-line);
+    background: var(--paper-surface-muted);
+  }
+
+  .input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  textarea {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--paper-line-strong);
+    border-radius: 8px;
+    background: var(--paper-surface);
+    color: var(--paper-ink);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    resize: none;
+    transition: border-color 160ms ease;
+    outline: none;
+  }
+
+  textarea:focus {
+    border-color: var(--paper-accent);
+  }
+
+  textarea::placeholder {
+    color: var(--paper-ink-faint);
+  }
+
+  .send-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    border: none;
+    background: var(--paper-accent);
+    color: white;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 160ms ease;
+  }
+
+  .send-btn:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+
+  .send-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .input-hint {
+    margin: 8px 0 0;
+    font-size: 0.72rem;
+    color: var(--paper-ink-faint);
+  }
+
+  .input-hint a {
+    color: var(--paper-accent);
+    text-decoration: none;
+  }
+
+  .input-hint a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .chat-window {
+      max-height: 360px;
+      padding: 14px;
+    }
+
+    .message {
+      max-width: 96%;
+    }
+
+    .chat-header {
+      padding: 12px 14px;
+    }
+
+    .chat-input-area {
+      padding: 12px 14px;
+    }
+  }
+</style>
+
+<script>
+  // Simple markdown-lite renderer for AI responses
+  function renderMarkdown(text: string): string {
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^### (.+)$/gm, '<strong style="font-size:0.9rem;display:block;margin-top:10px;">$1</strong>')
+      .replace(/^## (.+)$/gm, '<strong style="font-size:0.95rem;display:block;margin-top:12px;">$1</strong>')
+      .replace(/^- (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>\n?)+/g, (m) => `<ul>${m}</ul>`)
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n/g, '<br>')
+      .replace(/^(?!<[uols])(.+)$/gm, (m) => m.startsWith('<') ? m : `<p>${m}</p>`);
+  }
+
+  function appendMessage(content: string, role: 'user' | 'assistant', isTyping = false) {
+    const window = document.getElementById('chat-window')!;
+    const div = document.createElement('div');
+    div.className = `message ${role}-message${isTyping ? ' typing-indicator' : ''}`;
+
+    if (isTyping) {
+      div.innerHTML = `<div class="message-bubble"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+    } else if (role === 'assistant') {
+      div.innerHTML = `<div class="message-bubble"><div class="ai-content">${renderMarkdown(content)}</div></div>`;
+    } else {
+      div.innerHTML = `<div class="message-bubble">${content.replace(/\n/g, '<br>')}</div>`;
+    }
+
+    window.appendChild(div);
+    window.scrollTop = window.scrollHeight;
+    return div;
+  }
+
+  const conversationHistory: { role: string; content: string }[] = [];
+
+  async function sendMessage(text: string) {
+    if (!text.trim()) return;
+
+    const sendBtn = document.getElementById('send-btn') as HTMLButtonElement;
+    const input = document.getElementById('chat-input') as HTMLTextAreaElement;
+
+    sendBtn.disabled = true;
+    input.value = '';
+    input.style.height = 'auto';
+
+    appendMessage(text, 'user');
+    conversationHistory.push({ role: 'user', content: text });
+
+    const typingEl = appendMessage('', 'assistant', true);
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: conversationHistory }),
+      });
+
+      const data = await res.json();
+      typingEl.remove();
+
+      const reply = data.content || data.error || 'Something went wrong. Please try again.';
+      conversationHistory.push({ role: 'assistant', content: reply });
+      appendMessage(reply, 'assistant');
+    } catch {
+      typingEl.remove();
+      appendMessage('Connection error — please try again or email krutikvanjara3880@gmail.com directly.', 'assistant');
+    }
+
+    sendBtn.disabled = false;
+  }
+
+  function init() {
+    const sendBtn = document.getElementById('send-btn');
+    const input = document.getElementById('chat-input') as HTMLTextAreaElement;
+
+    // Auto-resize textarea
+    input?.addEventListener('input', () => {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 140) + 'px';
+    });
+
+    // Send on button click
+    sendBtn?.addEventListener('click', () => {
+      sendMessage(input.value.trim());
+    });
+
+    // Send on Ctrl/Cmd + Enter
+    input?.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        sendMessage(input.value.trim());
+      }
+    });
+
+    // Example prompt buttons
+    document.querySelectorAll<HTMLButtonElement>('.example-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const prompt = btn.dataset.prompt || '';
+        if (input) input.value = prompt;
+        sendMessage(prompt);
+      });
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>

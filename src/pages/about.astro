@@ -1,6 +1,10 @@
 ---
+export const prerender = true;
 import { getCollection, render } from 'astro:content';
 import BlogArticle from '../layouts/BlogArticle.astro';
+import RecruiterChat from '../components/RecruiterChat.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSiteConfig } from '../data/site';
 
 const [about] = await getCollection('about');
 
@@ -9,13 +13,41 @@ if (!about) {
 }
 
 const { Content, headings } = await render(about);
+const { site } = await getSiteConfig();
 ---
 
-<BlogArticle
-  post={about}
-  headings={headings}
-  sidebar={{ enable: false, ...about.data.sidebar }}
-  contentFont="ui"
->
-  <Content />
-</BlogArticle>
+<BaseLayout title={`About · ${site.title}`} description={about.data.description}>
+  <div class="about-wrapper">
+    <BlogArticle
+      post={about}
+      headings={headings}
+      sidebar={{ enable: false, ...about.data.sidebar }}
+      contentFont="ui"
+    >
+      <Content />
+    </BlogArticle>
+
+    <div class="chat-inject">
+      <RecruiterChat />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-wrapper {
+    width: 100%;
+    max-width: var(--layout-reading-width, 760px);
+    margin: 0 auto;
+    padding: 0 var(--layout-page-gutter, 32px) var(--layout-page-bottom, 72px);
+  }
+
+  .chat-inject {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    .about-wrapper {
+      padding: 0 16px 48px;
+    }
+  }
+</style>
